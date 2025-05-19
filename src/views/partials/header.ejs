@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Penjadwalan Kuliah</title>
+  
+  <!-- Meta tags untuk SEO -->
+  <meta name="description" content="Aplikasi penjadwalan kuliah untuk mengelola jadwal dan tugas kuliah dengan mudah">
+  <meta name="keywords" content="jadwal kuliah, tugas kuliah, penjadwalan, aplikasi kuliah">
+  <meta name="author" content="Admin">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#172554',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <!-- Custom Style -->
+  <style>
+    /* Animation styles */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Accessibility improvements */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Custom form styles */
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(37, 99, 235, 0.5);
+      outline-offset: 2px;
+    }
+  </style>
+  
+  <!-- Schema.org markup for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Aplikasi Penjadwalan Kuliah",
+      "description": "Aplikasi untuk mengelola jadwal dan tugas kuliah dengan mudah",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any"
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <header>
+    <nav class="bg-primary-700 text-white shadow-md">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex flex-wrap items-center justify-between">
+          <a href="/" class="text-xl font-bold tracking-tight">
+            <span class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+              </svg>
+              Penjadwalan Kuliah
+            </span>
+          </a>
+          
+          <button id="menuToggle" type="button" class="md:hidden inline-flex items-center p-2 rounded-lg text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-white">
+            <span class="sr-only">Buka menu</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </button>
+          
+          <div id="navbarMenu" class="hidden md:flex md:flex-grow md:w-auto w-full md:items-center">
+            <ul class="flex flex-col md:flex-row md:ml-auto space-y-2 md:space-y-0 md:space-x-4 mt-3 md:mt-0">
+              <li>
+                <a href="/" class="block px-3 py-2 rounded-lg hover:bg-primary-600 transition-colors duration-200" aria-current="page">
+                  <i class="bi bi-house-door me-1"></i> Beranda
+                </a>
+              </li>
+              <li>
+                <a href="/add" class="block px-3 py-2 rounded-lg hover:bg-primary-600 transition-colors duration-200">
+                  <i class="bi bi-calendar-plus me-1"></i> Tambah Jadwal
+                </a>
+              </li>
+              <li>
+                <a href="/tugas" class="block px-3 py-2 rounded-lg hover:bg-primary-600 transition-colors duration-200">
+                  <i class="bi bi-list-task me-1"></i> Daftar Tugas
+                </a>
+              </li>
+              <li>
+                <a href="/tugas/add" class="block px-3 py-2 rounded-lg hover:bg-primary-600 transition-colors duration-200">
+                  <i class="bi bi-file-earmark-plus me-1"></i> Tambah Tugas
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container mx-auto px-4 py-6 flex-grow fade-in"> 

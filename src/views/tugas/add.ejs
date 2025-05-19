@@ -1,0 +1,90 @@
+<%- include('../partials/header') %>
+
+<div class="max-w-2xl mx-auto">
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="bg-primary-600 px-6 py-4">
+      <h1 class="text-xl font-bold text-white flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Tambah Tugas Baru
+      </h1>
+    </div>
+    <div class="p-6">
+      <form action="/tugas/add" method="POST" class="space-y-6">
+        <div>
+          <label for="mata_kuliah" class="block text-sm font-medium text-gray-700">Mata Kuliah</label>
+          <input type="text" id="mata_kuliah" name="mata_kuliah" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Masukkan nama mata kuliah">
+        </div>
+
+        <div>
+          <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi Tugas</label>
+          <textarea id="deskripsi" name="deskripsi" rows="3" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Jelaskan detail tugas yang harus dikerjakan"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="deadline_tanggal" class="block text-sm font-medium text-gray-700">Deadline Tanggal</label>
+            <input type="date" id="deadline_tanggal" name="deadline_tanggal" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+          </div>
+          <div>
+            <label for="deadline_waktu" class="block text-sm font-medium text-gray-700">Deadline Waktu</label>
+            <input type="time" id="deadline_waktu" name="deadline_waktu" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+          </div>
+        </div>
+
+        <div>
+          <label for="tempat_pengumpulan" class="block text-sm font-medium text-gray-700">Tempat Pengumpulan (Opsional)</label>
+          <input type="text" id="tempat_pengumpulan" name="tempat_pengumpulan" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Contoh: Email Dosen, Classroom, Gedung A Lantai 2, dll.">
+          <p class="mt-1 text-xs text-gray-500">Bisa diisi dengan lokasi fisik atau platform pengumpulan online</p>
+        </div>
+
+        <div class="flex items-center justify-between pt-4">
+          <a href="/tugas" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+            </svg>
+            Kembali
+          </a>
+          <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="mt-6 flex justify-center">
+    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 w-full max-w-lg rounded-md">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm text-amber-700">
+            Tugas akan otomatis dihapus saat deadline terlewati.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Set default date to today
+  document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    const deadlineTanggalInput = document.getElementById('deadline_tanggal');
+    if (deadlineTanggalInput) {
+      deadlineTanggalInput.min = today;
+      deadlineTanggalInput.value = today;
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %> 
