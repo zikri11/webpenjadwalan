@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistem Penjadwalan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-primary-50 to-primary-100 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full">
+        <!-- Logo dan Judul -->
+        <div class="text-center mb-8">
+            <i class="bi bi-calendar-check text-5xl text-primary-600 mb-4"></i>
+            <h2 class="text-3xl font-bold text-gray-900">Sistem Penjadwalan</h2>
+            <p class="mt-2 text-sm text-gray-600">fs-server.icu</p>
+        </div>
+
+        <!-- Card Login -->
+        <div class="bg-white shadow-xl rounded-lg p-6 space-y-6">
+            <div class="text-center mb-4">
+                <h3 class="text-xl font-medium text-gray-900">Selamat Datang</h3>
+                <p class="text-sm text-gray-500 mt-1">Masukkan kunci registrasi Anda untuk melanjutkan</p>
+            </div>
+
+            <% if (locals.error) { %>
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 rounded">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700"><%= error %></p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+            <form action="/login" method="POST" class="space-y-4">
+                <div>
+                    <label for="registration_key" class="block text-sm font-medium text-gray-700 mb-1">
+                        Kunci Registrasi
+                    </label>
+                    <div class="relative">
+                        <input type="password" 
+                               id="registration_key" 
+                               name="registration_key" 
+                               required
+                               maxlength="4"
+                               pattern="[0-9]{4}"
+                               inputmode="numeric"
+                               class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-center font-mono text-lg tracking-widest"
+                               placeholder="••••"
+                               autocomplete="off">
+                        <button type="button" 
+                                onclick="togglePassword()"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <i id="eyeIcon" class="bi bi-eye-slash text-gray-400 hover:text-gray-600"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" 
+                        class="w-full flex justify-center items-center bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors font-medium">
+                    <i class="bi bi-box-arrow-in-right mr-2"></i>
+                    Masuk
+                </button>
+            </form>
+
+            <!-- Info Box -->
+            <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-info-circle text-blue-500"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h4 class="text-sm font-medium text-blue-800">Cara Mendapatkan Kunci Registrasi:</h4>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <p>1. Kirim pesan <span class="font-mono bg-blue-100 px-2 py-0.5 rounded">regis</span> ke WhatsApp Bot fs-server.icu</p>
+                            <p class="mt-1">2. Bot akan mengirimkan kunci registrasi 4 digit</p>
+                            <p class="mt-1 text-xs text-blue-600">Catatan: Kunci registrasi hanya berisi angka (0-9)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8">
+            <p class="text-sm text-gray-500">
+                &copy; <%= new Date().getFullYear() %> Sistem Penjadwalan fs-server.icu
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('registration_key');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.classList.remove('bi-eye-slash');
+                eyeIcon.classList.add('bi-eye');
+            } else {
+                input.type = 'password';
+                eyeIcon.classList.remove('bi-eye');
+                eyeIcon.classList.add('bi-eye-slash');
+            }
+        }
+
+        // Auto-hide error message after 5 seconds
+        const errorDiv = document.querySelector('.bg-red-50');
+        if (errorDiv) {
+            setTimeout(() => {
+                errorDiv.style.transition = 'opacity 0.5s ease-out';
+                errorDiv.style.opacity = '0';
+                setTimeout(() => errorDiv.remove(), 500);
+            }, 5000);
+        }
+    </script>
+</body>
+</html> 
